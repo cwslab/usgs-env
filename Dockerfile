@@ -1,7 +1,5 @@
-# 1. Start from the pre-built Jupyter stack
-FROM jupyter/scipy-notebook:latest
+FROM jupyter/scipy-notebook:python-3.10
 
-# 2. Install system-level spatial dependencies
 USER root
 RUN apt-get update && apt-get install -y \
     libgdal-dev \
@@ -9,19 +7,23 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# 3. Back to notebook user
 USER ${NB_USER}
 
-# 4. Install packages
-# nbgitpuller handles its own registration in modern Jupyter versions
-RUN pip install --no-cache-dir \
-    geopandas \
+RUN mamba install -y -c conda-forge \
+    "numpy<2" \
+    "pandas<2.3" \
+    matplotlib \
     shapely \
+    geopandas \
     folium \
     dataretrieval \
     hydroeval \
     pynhd \
-    nbgitpuller
+    pyarrow \
+    bottleneck \
+    numexpr \
+    && mamba clean -afy
 
-# 5. Optional: Verify nbgitpuller is recognized (non-blocking)
+RUN pip install --no-cache-dir nbgitpuller
+
 RUN jupyter server extension list
