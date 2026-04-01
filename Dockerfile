@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
 USER ${NB_USER}
 
 RUN mamba install -y -c conda-forge \
-    "numpy<2" \
-    "pandas<2.3" \
-    matplotlib \
-    shapely \
-    geopandas \
-    folium \
+    numpy=1.26.* \
+    pandas=2.2.* \
+    matplotlib=3.8.* \
+    shapely=2.0.* \
+    geopandas=0.14.* \
+    folium=0.16.* \
     dataretrieval \
     hydroeval \
     pynhd \
@@ -26,4 +26,5 @@ RUN mamba install -y -c conda-forge \
 
 RUN pip install --no-cache-dir nbgitpuller
 
+RUN python -c "import numpy, pandas, shapely, geopandas; print(numpy.__version__, pandas.__version__)"
 RUN jupyter server extension list
