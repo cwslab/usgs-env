@@ -10,6 +10,11 @@ dependencies:
   - geopandas
   - folium
   - dataretrieval
+  - hydroeval
+  - pynhd
+  - gdal
+  - proj
   - pyarrow
   - bottleneck
   - numexpr
+  - nbgitpuller
