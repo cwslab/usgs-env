@@ -10,7 +10,6 @@ dependencies:
   - geopandas
   - folium
   - dataretrieval
-  - hydroeval
   - pynhd
   - gdal
   - proj
